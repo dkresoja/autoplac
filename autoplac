@@ -1,0 +1,227 @@
+using System;
+
+namespace Autoplac;
+
+
+
+class Auto
+{
+
+    public string model;
+    public double cena;
+    public double godiste;
+    public int brojac;
+    
+
+    public static void tabela()
+    {
+        Console.WriteLine("MODEL" + "|" + "CENA" + "|" + "GODISTE");
+        
+    }
+
+
+    public static void izlaz()
+    {
+        Console.WriteLine("Za nastavak pritisnite bilo sta, za izlaz napisite 'N' ");
+        string izlaz = Console.ReadLine().ToUpper() ;
+        if(izlaz != "N")
+        {
+            return;
+        } else
+        {
+            System.Environment.Exit(5);
+        }
+    }
+
+    public void unosAuta(string Model, double Cena, double Godiste)
+    {
+        try
+        {
+            Console.WriteLine("Molimo vas unesite vasu marku automobila");
+            Model = Console.ReadLine();
+        }
+        catch (Exception )
+        {
+            Console.WriteLine("Neispravan unos");
+            return;
+        }
+        try
+        {
+            Console.WriteLine("Molimo vas unesite vasu cenu automobila");
+            Cena = Convert.ToDouble(Console.ReadLine());
+            
+        } catch(Exception e)
+        {
+            Console.WriteLine("Neispravan unos");
+            return;
+        }
+        try
+        {
+            Console.WriteLine("Molimo vas unesite godiste vaseg automobila");
+            Godiste = Convert.ToDouble(Console.ReadLine());
+            
+        }
+        
+        catch(Exception e )
+        {
+            Console.WriteLine("Neispravan unos");
+            return;
+        }
+
+        this.model = Model;
+        this.cena = Cena;
+        this.godiste = Godiste;
+
+    }
+
+    public void promenaCene()
+    {
+        Console.WriteLine("Molimo vas unesite index automobila na kojem zelite da izvrsite promenu");
+        int index = Convert.ToInt32(Console.ReadLine());
+
+        Console.WriteLine(index);
+
+        Console.WriteLine("Unesite novi iznos...");
+        double noviIznos = Convert.ToDouble(Console.ReadLine());
+
+        this.cena = noviIznos;
+        
+    }
+        static void Main()
+        {
+
+        int brojac = 0;
+            string[] automobili = new string[5];
+        
+            List<string> volvo = new List<string>();
+
+            
+
+   Auto Automobili = new Auto();
+    
+            while (true)
+            {
+     
+                Console.WriteLine("1. Proverite spisak vozila");
+                Console.WriteLine("2. Unesite vozilo");
+                Console.WriteLine("3. Uklonite vozilo");
+                Console.WriteLine("4. Promena vrednosti");
+
+            try
+            {
+                int opcija = Convert.ToInt32(Console.ReadLine());
+                if (opcija == 1)
+                {
+                    tabela();
+                    
+
+                    foreach (string x in volvo)
+                        Console.WriteLine(x);
+                    Console.WriteLine();
+             
+
+                }
+                else if (opcija == 2)
+                {
+
+                    Automobili.unosAuta("model", 5000, 2002);
+                    
+                    volvo.Add(Automobili.model + " " + Automobili.cena + " " + Automobili.godiste);
+                
+
+                }
+
+                else if (opcija == 3)
+                {
+
+                    Console.WriteLine("Molimo vas unesite index koji zelite da uklonite sa liste");
+                    try
+                    {
+                        foreach (string xo in volvo)
+                            Console.WriteLine(xo);
+                        int uklanjanje = Convert.ToInt32(Console.ReadLine());
+
+                        volvo.RemoveAt(uklanjanje - 1);
+                       
+                    }
+                    catch (Exception a)
+                    {
+                        Console.WriteLine("Nepostojeci ID");
+                    }
+                }
+                else if (opcija == 4)
+                {
+
+
+                    while (true)
+                    {
+
+                        Console.WriteLine("----------------------------Lista trenutnih automobila je : ----------------------------");
+                        tabela();
+                        foreach (string b in volvo)
+                            Console.WriteLine(b);
+                        Console.WriteLine("----------------------------------------------------------------------------------------");
+                        Console.WriteLine("Molimo vas unesite index automobila na kojem zelite da izvrsite promenu");
+                        int index = Convert.ToInt32(Console.ReadLine());
+
+                        if (index <= volvo.Count && index > 0)
+                        {
+                            Console.WriteLine();
+
+                        }
+                        else
+                        {
+                            Console.WriteLine("izabrali ste slot koji nema nista!");
+                            break;
+                        }
+
+
+                        Console.WriteLine("Promenu cega zelite da izvrsite? MODEL/CENA/GODISTE");
+                        string odgovor = Convert.ToString(Console.ReadLine().ToUpper());
+                        if (odgovor == "MODEL")
+                        {
+                            Console.WriteLine("Unesite novi model..");
+                            string noviModel = Console.ReadLine();
+                            
+                            volvo[index - 1] = noviModel + " " + Automobili.cena + " " + Automobili.godiste;
+                            break;
+                        }
+                        else if (odgovor == "CENA")
+                        {
+                            Console.WriteLine("Unesite novu cenu...");
+                            int novaCena = Convert.ToInt32(Console.ReadLine());
+                           
+                            volvo[index - 1] = Automobili.model + " " + novaCena + " " + Automobili.godiste;
+                            break;
+                        }
+                        else if (odgovor == "GODISTE")
+                        {
+                            Console.WriteLine("Unesite novo godiste..");
+                            int novoGodiste = Convert.ToInt32(Console.ReadLine());
+                            
+                            volvo[index - 1] = Automobili.model + " " + Automobili.cena + " " + novoGodiste;
+                            break;
+                        }
+                        else
+                            Console.WriteLine("Neispravan unos");
+                        break;
+                    }
+                } 
+
+                else
+                {
+                    Console.WriteLine("Neispravan unos!");
+                }
+            }catch(Exception e)
+            {
+
+                Console.WriteLine("Nepravilan unos, pukusajte ponovo.");
+     
+            }
+
+            izlaz();
+        }
+
+            Console.ReadLine();
+        }
+    }
